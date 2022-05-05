@@ -25,6 +25,11 @@ public class AuthorController {
     public ResponseEntity<AuthorResponse> addAuthor(@RequestBody AuthorRequest request){
         return new ResponseEntity<>(new AuthorResponse(this.service.create(request)), HttpStatus.CREATED);
     }
+
+    @GetMapping("/{id}")
+    public Author getAuthorById(@PathVariable("id") Long id){
+        return service.getAuthorById(id);
+    }
 /*
     @PutMapping("/author")
     public Author update(){

@@ -5,11 +5,13 @@ import lombok.Getter;
 @Getter
 public class AuthorResponse {
 
-    private Long id;
-    private String name;
+    private final Long id;
+    private final String name;
+    private final String surname;
 
     public AuthorResponse(Author author) {
-        this.id = author.getId();
-        this.name = author.getName();
+        id = author.getId();
+        name = author.getName();
+        surname = author.getSurname();
     }
 }

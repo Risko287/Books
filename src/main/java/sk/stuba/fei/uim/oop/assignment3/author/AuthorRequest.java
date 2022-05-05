@@ -6,4 +6,6 @@ import lombok.Getter;
 public class AuthorRequest {
 
     private String name;
+    private String surname;
+
 }

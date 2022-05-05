@@ -16,8 +16,8 @@ public class Author {
     private Long id;
 
     private String name;
+    private String surname;
 
     public Author() {
-
     }
 }
