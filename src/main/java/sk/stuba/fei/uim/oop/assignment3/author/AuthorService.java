@@ -22,7 +22,7 @@ public class AuthorService implements IAuthorService {
         a2.setName("JOZKO");
         this.repository.save(a1);
         this.repository.save(a2);
-        this.repository.delete(a2);
+        //this.repository.delete(a2);
         ////////////////////////////////
     }
 
@@ -36,11 +36,25 @@ public class AuthorService implements IAuthorService {
         Author a = new Author();
         a.setName(request.getName());
         a.setSurname(request.getSurname());
-        return this.repository.save(a);
+        return repository.save(a);
     }
 
     @Override
     public Author getAuthorById(Long id) {
         return repository.findAuthorById(id);
+    }
+
+    @Override
+    public Author updateAuthorById(Long id, AuthorRequest request) {
+        Author update = repository.findAuthorById(id);
+        update.setName(request.getName());
+        update.setSurname(request.getSurname());
+        return repository.save(update);
+    }
+
+    @Override
+    public void deleteAuthor(Long id) {    //tu tiez neviem co by to malo vracat
+        Author byeBye = repository.findAuthorById(id);
+        repository.delete(byeBye);
     }
 }
