@@ -18,13 +18,13 @@ public class AuthorService implements IAuthorService {
         //////////////////////////////
         Author a1 = new Author();
         a1.setName("FERKO");
-        a1.setSurname("MRKVA");
+        a1.setSurname("MRKVICKA");
         Author a2 = new Author();
-        a2.setName("JOZKO");
+        a2.setName("jozko");
+        a2.setSurname("baci");
         this.repository.save(a1);
         this.repository.save(a2);
-        //this.repository.delete(a2);
-        ////////////////////////////////
+        /////////////this.repository.delete(a2);
     }
 
     @Override
@@ -42,10 +42,12 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public Author getAuthorById(Long id) {
+        /*
         if (!repository.existsById(id)){
             throw new EntityNotFoundException();  //moze byt takto?
-        }
-        return repository.findAuthorById(id);
+        }   return repository.findAuthorById(id);
+         */
+        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
@@ -58,8 +60,6 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public void deleteAuthor(Long id) {
-        Author byeBye = repository.findAuthorById(id);
-        //repository.delete(byeBye);  //neviem ci je lepsie toto
-        repository.deleteById(id);    //alebo toto
+        repository.deleteById(id);
     }
 }

@@ -34,36 +34,34 @@ public class AuthorController {
     @GetMapping("/{id}")
     public ResponseEntity<AuthorResponse> getAuthorById(@PathVariable("id") Long id){
         try {
-            service.getAuthorById(id);
+            return new ResponseEntity<>(new AuthorResponse(service.getAuthorById(id)),HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(new AuthorResponse(service.getAuthorById(id)),HttpStatus.OK);
+
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AuthorResponse> updateAuthor(@PathVariable("id") Long id, @RequestBody AuthorRequest request){
         try {
-            service.getAuthorById(id);
+            return new ResponseEntity<>(new AuthorResponse(service.updateAuthorById(id, request)),HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(new AuthorResponse(service.updateAuthorById(id, request)),HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAuthor(@PathVariable("id") Long id){
         try {
-            service.getAuthorById(id);
+            service.deleteAuthor(id);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        service.deleteAuthor(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     public ResponseEntity<Void> authorNotFound(Long id){ //tu som chcel vytvorit funkciu aby som nemal duplicitny kod
-        try {                                            // ale nevedel som to implementovat do tych funkcii
+        try {
             service.getAuthorById(id);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
