@@ -3,6 +3,7 @@ package sk.stuba.fei.uim.oop.assignment3.author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -41,6 +42,9 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public Author getAuthorById(Long id) {
+        if (!repository.existsById(id)){
+            throw new EntityNotFoundException();  //moze byt takto?
+        }
         return repository.findAuthorById(id);
     }
 
@@ -53,8 +57,9 @@ public class AuthorService implements IAuthorService {
     }
 
     @Override
-    public void deleteAuthor(Long id) {    //tu tiez neviem co by to malo vracat
+    public void deleteAuthor(Long id) {
         Author byeBye = repository.findAuthorById(id);
-        repository.delete(byeBye);
+        //repository.delete(byeBye);  //neviem ci je lepsie toto
+        repository.deleteById(id);    //alebo toto
     }
 }
