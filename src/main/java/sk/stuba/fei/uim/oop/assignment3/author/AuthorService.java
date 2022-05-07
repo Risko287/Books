@@ -52,6 +52,9 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public Author updateAuthorById(Long id, AuthorRequest request) {
+        if (!repository.existsById(id)){
+            throw new EntityNotFoundException();
+        }
         Author update = repository.findAuthorById(id);
         update.setName(request.getName());
         update.setSurname(request.getSurname());
@@ -60,6 +63,9 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public void deleteAuthor(Long id) {
+        if (!repository.existsById(id)){
+            throw new EntityNotFoundException();
+        }
         repository.deleteById(id);
     }
 }
