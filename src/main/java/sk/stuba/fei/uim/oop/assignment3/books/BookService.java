@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.assignment3.books;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.author.AuthorService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public class BookService implements IBookService{
 
     private final IBookRepository repository;
+    private AuthorService authorService;
 
     @Autowired
     public BookService(IBookRepository repository) {
@@ -17,11 +19,21 @@ public class BookService implements IBookService{
         Book book1 = new Book();
         book1.setName("psicek a macicka");
         book1.setDescription("rozpravka");
-        book1.setAuthor(1L);
+        book1.setAuthor(authorService.getAuthorById(1L));
         book1.setAmount(50L);
         book1.setPages(400);
         book1.setLendCount(10L);
         this.repository.save(book1);
+    }
+
+    private Book saveBook(BookRequest request, Book book) {
+        book.setName(request.getName());
+        book.setDescription(request.getDescription());
+        book.setAuthor(authorService.getAuthorById(request.getAuthor()));
+        book.setPages(request.getPages());
+        book.setAmount(request.getAmount());
+        book.setLendCount(request.getLendCount());
+        return repository.save(book);
     }
 
     @Override
@@ -48,16 +60,6 @@ public class BookService implements IBookService{
         Book b = repository.findById(id).get(); //da sa aby mi to nesvietilo bez toho aby som pouzil optional?
          */
         return saveBook(request, getBookById(id));
-    }
-
-    private Book saveBook(BookRequest request, Book book) { //toto mi vytvoril sam IntelliJ :D
-        book.setName(request.getName());
-        book.setDescription(request.getDescription());
-        book.setAuthor(request.getAuthor());
-        book.setPages(request.getPages());
-        book.setAmount(request.getAmount());
-        book.setLendCount(request.getLendCount());
-        return repository.save(book);
     }
 
     @Override
