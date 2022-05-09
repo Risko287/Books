@@ -6,6 +6,7 @@ import sk.stuba.fei.uim.oop.assignment3.books.Book;
 import sk.stuba.fei.uim.oop.assignment3.books.BookService;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -56,9 +57,9 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public void deleteAuthor(Long id) {
-        if (!repository.existsById(id)){
-            throw new EntityNotFoundException();
-        }
-        repository.deleteById(id);
+        Author author = getAuthorById(id);
+        author.getBooks().clear();
+        repository.save(author);
+        repository.delete(author);
     }
 }

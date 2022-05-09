@@ -57,27 +57,27 @@ public class BookController {
     }
 
     @GetMapping("/{id}/amount")
-    public ResponseEntity<Integer> getBookAmount(@PathVariable Long id){
+    public ResponseEntity<AmountResponse> getBookAmount(@PathVariable Long id){
         try {
-            return new ResponseEntity<>(service.getBookById(id).getAmount(),HttpStatus.OK); //toto je dobre? co sa tyka struktury
+            return new ResponseEntity<>(new AmountResponse(service.getBookAmount(id)),HttpStatus.OK);
         }catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/{id}/amount")
-    public ResponseEntity<BookResponse> addBookAmount(@PathVariable Long id, @RequestBody BookRequest request){
+    public ResponseEntity<AmountResponse> addBookAmount(@PathVariable Long id, @RequestBody BookRequest request){
         try {
-            return new ResponseEntity<>(new BookResponse(service.updateBookAmount(id, request)),HttpStatus.OK);
+            return new ResponseEntity<>(new AmountResponse(service.updateBookAmount(id, request)),HttpStatus.OK);
         }catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/{id}/lendCount")
-    public ResponseEntity<Integer> getBookLendCount(@PathVariable Long id){
+    public ResponseEntity<LendCountResponse> getBookLendCount(@PathVariable Long id){
         try {
-            return new ResponseEntity<>(service.getBookById(id).getLendCount(),HttpStatus.OK); //toto je dobre? co sa tyka struktury
+            return new ResponseEntity<>(new LendCountResponse(service.getBookLendCount(id)),HttpStatus.OK);
         }catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
