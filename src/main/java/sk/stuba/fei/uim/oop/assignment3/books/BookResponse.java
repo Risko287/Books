@@ -9,7 +9,7 @@ public class BookResponse {
     private final long id;
     private final String name;
     private final String description;
-    private final Author author;
+    private final long author;
     private final int pages;
     private final long amount;
     private final long lendCount;
@@ -18,7 +18,7 @@ public class BookResponse {
         id = book.getId();
         name = book.getName();
         description = book.getDescription();
-        author = book.getAuthor();
+        author = book.getAuthor().getId();
         pages = book.getPages();
         amount = book.getAmount();
         lendCount = book.getLendCount();

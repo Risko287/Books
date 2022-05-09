@@ -2,13 +2,14 @@ package sk.stuba.fei.uim.oop.assignment3.author;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.books.Book;
+import sk.stuba.fei.uim.oop.assignment3.books.BookService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
 public class AuthorService implements IAuthorService {
-
 
     private final IAuthorRepository repository;
 
@@ -24,7 +25,13 @@ public class AuthorService implements IAuthorService {
         a2.setSurname("baci");
         this.repository.save(a1);
         this.repository.save(a2);
-        /////////////this.repository.delete(a2);
+        /////////////////////////////
+    }
+
+    private Author saveAuthor(AuthorRequest request, Author a) {
+        a.setName(request.getName());
+        a.setSurname(request.getSurname());
+        return repository.save(a);
     }
 
     @Override
@@ -34,31 +41,17 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public Author create(AuthorRequest request) {
-        Author a = new Author();
-        a.setName(request.getName());
-        a.setSurname(request.getSurname());
-        return repository.save(a);
+        return saveAuthor(request, new Author());
     }
 
     @Override
     public Author getAuthorById(Long id) {
-        /*
-        if (!repository.existsById(id)){
-            throw new EntityNotFoundException();  //moze byt takto?
-        }   return repository.findAuthorById(id);
-         */
         return repository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
     public Author updateAuthorById(Long id, AuthorRequest request) {
-        if (!repository.existsById(id)){
-            throw new EntityNotFoundException();
-        }
-        Author update = repository.findAuthorById(id);
-        update.setName(request.getName());
-        update.setSurname(request.getSurname());
-        return repository.save(update);
+        return saveAuthor(request, getAuthorById(id));
     }
 
     @Override
