@@ -1,17 +1,16 @@
 package sk.stuba.fei.uim.oop.assignment3.author;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sk.stuba.fei.uim.oop.assignment3.books.Book;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
 public class Author {
 
     @Id
@@ -24,4 +23,7 @@ public class Author {
     @OneToMany
     private List<Book> books;
 
+    public Author() {
+        books = new ArrayList<>();
+    }
 }

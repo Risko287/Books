@@ -38,7 +38,6 @@ public class BookService implements IBookService{
         book.setPages(request.getPages());
         book.setAmount(request.getAmount());
         book.setLendCount(request.getLendCount());
-        authorService.getAuthorById(request.getAuthor()).getBooks().add(book);
         return repository.save(book);
     }
 
@@ -49,7 +48,9 @@ public class BookService implements IBookService{
 
     @Override
     public Book create(BookRequest request) {
-        return saveBook(request, new Book());
+        Book book = new Book();
+        authorService.getAuthorById(request.getAuthor()).getBooks().add(book);
+        return saveBook(request, book);
     }
 
     @Override
@@ -59,14 +60,30 @@ public class BookService implements IBookService{
 
     @Override
     public Book updateBookById(Long id, BookRequest request) {
-        return saveBook(request, getBookById(id));
+        Book book = getBookById(id);
+        for(Book b : book.getAuthor().getBooks()){
+            if (b.getId().equals(book.getId())){
+                return saveBook(request, b);
+            }
+        }
+        return null;
     }
 
     @Override
     public void deleteBookById(Long id) {
-        if (!repository.existsById(id)){
-            throw new EntityNotFoundException();
-        }
-        repository.deleteById(id);
+        Book book = getBookById(id);
+        book.getAuthor().getBooks().remove(book);
+        repository.delete(book);
+
     }
+
+    @Override
+    public Book updateBookAmount(Long id, BookRequest request) {
+        Book book = getBookById(id);
+        int amount = book.getAmount();
+        amount += request.getAmount();
+        book.setAmount(amount);
+        return repository.save(book);
+    }
+
 }

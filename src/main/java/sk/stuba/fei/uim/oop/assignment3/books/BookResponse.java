@@ -1,7 +1,6 @@
 package sk.stuba.fei.uim.oop.assignment3.books;
 
 import lombok.Getter;
-import sk.stuba.fei.uim.oop.assignment3.author.Author;
 
 @Getter
 public class BookResponse {
@@ -11,8 +10,8 @@ public class BookResponse {
     private final String description;
     private final long author;
     private final int pages;
-    private final long amount;
-    private final long lendCount;
+    private final int amount;
+    private final int lendCount;
 
     public BookResponse(Book book) {
         id = book.getId();

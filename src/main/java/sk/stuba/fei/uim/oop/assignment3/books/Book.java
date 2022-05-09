@@ -23,7 +23,7 @@ public class Book {
     @ManyToOne
     private Author author;
     private int pages;
-    private Long amount;
-    private Long lendCount;
+    private int amount;
+    private int lendCount;
 
 }
