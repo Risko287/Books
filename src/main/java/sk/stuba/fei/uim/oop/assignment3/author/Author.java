@@ -1,14 +1,17 @@
 package sk.stuba.fei.uim.oop.assignment3.author;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import sk.stuba.fei.uim.oop.assignment3.books.Book;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
+@NoArgsConstructor
 public class Author {
 
     @Id
@@ -18,6 +21,7 @@ public class Author {
     private String name;
     private String surname;
 
-    public Author() {
-    }
+    @OneToMany
+    private List<Book> books;
+
 }

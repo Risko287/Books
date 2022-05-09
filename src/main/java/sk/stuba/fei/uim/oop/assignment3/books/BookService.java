@@ -14,6 +14,14 @@ public class BookService implements IBookService{
     @Autowired
     public BookService(IBookRepository repository) {
         this.repository = repository;
+        Book book1 = new Book();
+        book1.setName("psicek a macicka");
+        book1.setDescription("rozpravka");
+        book1.setAuthor(1L);
+        book1.setAmount(50L);
+        book1.setPages(400);
+        book1.setLendCount(10L);
+        this.repository.save(book1);
     }
 
     @Override
@@ -23,8 +31,7 @@ public class BookService implements IBookService{
 
     @Override
     public Book create(BookRequest request) {
-        Book b = new Book();
-        return getBook(request, b);
+        return saveBook(request, new Book());
     }
 
     @Override
@@ -34,21 +41,23 @@ public class BookService implements IBookService{
 
     @Override
     public Book updateBookById(Long id, BookRequest request) {
+        /*
         if (!repository.existsById(id)){
             throw new EntityNotFoundException();
         }
         Book b = repository.findById(id).get(); //da sa aby mi to nesvietilo bez toho aby som pouzil optional?
-        return getBook(request, b);
+         */
+        return saveBook(request, getBookById(id));
     }
 
-    private Book getBook(BookRequest request, Book b) { //toto mi vytvoril sam IntelliJ :D
-        b.setName(request.getName());
-        b.setDescription(request.getDescription());
-        b.setAuthor(request.getAuthor());
-        b.setPages(request.getPages());
-        b.setAmount(request.getAmount());
-        b.setLendCount(request.getLendCount());
-        return repository.save(b);
+    private Book saveBook(BookRequest request, Book book) { //toto mi vytvoril sam IntelliJ :D
+        book.setName(request.getName());
+        book.setDescription(request.getDescription());
+        book.setAuthor(request.getAuthor());
+        book.setPages(request.getPages());
+        book.setAmount(request.getAmount());
+        book.setLendCount(request.getLendCount());
+        return repository.save(book);
     }
 
     @Override
