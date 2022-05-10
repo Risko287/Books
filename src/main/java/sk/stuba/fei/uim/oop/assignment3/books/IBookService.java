@@ -10,6 +10,6 @@ public interface IBookService {
     void deleteBookById(Long id);
 
     int getBookAmount(Long id);
-    int updateBookAmount(Long id, BookRequest request);
+    int updateBookAmount(Long id, Amount request);
     int getBookLendCount(Long id);
 }

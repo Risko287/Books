@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class AmountResponse {
+public class Amount {
 
     private final int amount;
 }

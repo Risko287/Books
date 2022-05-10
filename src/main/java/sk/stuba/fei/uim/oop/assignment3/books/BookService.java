@@ -82,7 +82,7 @@ public class BookService implements IBookService{
     }
 
     @Override
-    public int updateBookAmount(Long id, BookRequest request) {
+    public int updateBookAmount(Long id, Amount request) {
         Book book = getBookById(id);
         int amount = book.getAmount() + request.getAmount();
         amount += request.getAmount();

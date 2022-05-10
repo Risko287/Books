@@ -57,27 +57,27 @@ public class BookController {
     }
 
     @GetMapping("/{id}/amount")
-    public ResponseEntity<AmountResponse> getBookAmount(@PathVariable Long id){
+    public ResponseEntity<Amount> getBookAmount(@PathVariable Long id){
         try {
-            return new ResponseEntity<>(new AmountResponse(service.getBookAmount(id)),HttpStatus.OK);
+            return new ResponseEntity<>(new Amount(service.getBookAmount(id)),HttpStatus.OK);
         }catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/{id}/amount")
-    public ResponseEntity<AmountResponse> addBookAmount(@PathVariable Long id, @RequestBody BookRequest request){
+    public ResponseEntity<Amount> addBookAmount(@PathVariable Long id, @RequestBody Amount request){
         try {
-            return new ResponseEntity<>(new AmountResponse(service.updateBookAmount(id, request)),HttpStatus.OK);
+            return new ResponseEntity<>(new Amount(service.updateBookAmount(id, request)),HttpStatus.OK);
         }catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/{id}/lendCount")
-    public ResponseEntity<AmountResponse> getBookLendCount(@PathVariable Long id){
+    public ResponseEntity<Amount> getBookLendCount(@PathVariable Long id){
         try {
-            return new ResponseEntity<>(new AmountResponse(service.getBookLendCount(id)),HttpStatus.OK);
+            return new ResponseEntity<>(new Amount(service.getBookLendCount(id)),HttpStatus.OK);
         }catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
