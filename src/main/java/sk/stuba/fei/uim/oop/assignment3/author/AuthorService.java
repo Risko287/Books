@@ -2,21 +2,21 @@ package sk.stuba.fei.uim.oop.assignment3.author;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sk.stuba.fei.uim.oop.assignment3.books.Book;
-import sk.stuba.fei.uim.oop.assignment3.books.BookService;
+import sk.stuba.fei.uim.oop.assignment3.books.IBookRepository;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AuthorService implements IAuthorService {
 
-    private final IAuthorRepository repository;
+    private final IAuthorRepository authorRepository;
+    private final IBookRepository bookRepository;
 
     @Autowired
-    public AuthorService(IAuthorRepository repository) {
-        this.repository = repository;
+    public AuthorService(IAuthorRepository authorRepository, IBookRepository bookRepository) {
+        this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository;
         //////////////////////////////
         Author a1 = new Author();
         a1.setName("FERKO");
@@ -24,20 +24,20 @@ public class AuthorService implements IAuthorService {
         Author a2 = new Author();
         a2.setName("jozko");
         a2.setSurname("baci");
-        this.repository.save(a1);
-        this.repository.save(a2);
+        this.authorRepository.save(a1);
+        this.authorRepository.save(a2);
         /////////////////////////////
     }
 
     private Author saveAuthor(AuthorRequest request, Author a) {
         a.setName(request.getName());
         a.setSurname(request.getSurname());
-        return repository.save(a);
+        return authorRepository.save(a);
     }
 
     @Override
     public List<Author> getAll() {
-        return repository.findAll();
+        return authorRepository.findAll();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public Author getAuthorById(Long id) {
-        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return authorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
@@ -58,8 +58,7 @@ public class AuthorService implements IAuthorService {
     @Override
     public void deleteAuthor(Long id) {
         Author author = getAuthorById(id);
-        author.getBooks().clear();
-        repository.save(author);
-        repository.delete(author);
+        bookRepository.deleteAll(author.getBooks());
+        authorRepository.delete(author);
     }
 }

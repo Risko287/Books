@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.assignment3.books;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.author.Author;
 import sk.stuba.fei.uim.oop.assignment3.author.AuthorService;
 
 import javax.persistence.EntityNotFoundException;
@@ -63,8 +64,15 @@ public class BookService implements IBookService{
         Book book = getBookById(id);
         if (book.getAuthor().getId() != (request.getAuthor())){
             book.getAuthor().getBooks().remove(book);
-            authorService.getAuthorById(request.getAuthor()).getBooks().add(book);
+            if (request.getAuthor() != 0) {
+                authorService.getAuthorById(request.getAuthor()).getBooks().add(book);
+                book.setAuthor(authorService.getAuthorById(request.getAuthor()));
+            } else
+                book.getAuthor().setId(request.getAuthor());
         }
+        else
+            book.setAuthor(authorService.getAuthorById(request.getAuthor()));
+
         return saveBook(request, book);
     }
 
@@ -73,7 +81,6 @@ public class BookService implements IBookService{
         Book book = getBookById(id);
         book.getAuthor().getBooks().remove(book);
         repository.delete(book);
-
     }
 
     @Override
@@ -96,5 +103,4 @@ public class BookService implements IBookService{
     public int getBookLendCount(Long id) {
         return getBookById(id).getLendCount();
     }
-
 }
