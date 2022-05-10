@@ -77,22 +77,24 @@ public class BookService implements IBookService{
     }
 
     @Override
-    public Book getBookAmount(Long id) {
-        return getBookById(id);
+    public int getBookAmount(Long id) {
+        return getBookById(id).getAmount();
     }
 
     @Override
-    public Book updateBookAmount(Long id, BookRequest request) {
+    public int updateBookAmount(Long id, BookRequest request) {
         Book book = getBookById(id);
-        int amount = book.getAmount();
+        int amount = book.getAmount() + request.getAmount();
         amount += request.getAmount();
         book.setAmount(amount);
-        return repository.save(book);
+        repository.save(book);
+
+        return amount;
     }
 
     @Override
-    public Book getBookLendCount(Long id) {
-        return getBookById(id);
+    public int getBookLendCount(Long id) {
+        return getBookById(id).getLendCount();
     }
 
 }
