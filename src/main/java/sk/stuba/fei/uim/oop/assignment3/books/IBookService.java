@@ -9,7 +9,7 @@ public interface IBookService {
     Book updateBookById(Long id, BookRequest request);
     void deleteBookById(Long id);
 
-    Book getBookAmount(Long id);
-    Book updateBookAmount(Long id, BookRequest request);
-    Book getBookLendCount(Long id);
+    int getBookAmount(Long id);
+    int updateBookAmount(Long id, BookRequest request);
+    int getBookLendCount(Long id);
 }

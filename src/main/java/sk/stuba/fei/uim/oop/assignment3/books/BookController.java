@@ -75,9 +75,9 @@ public class BookController {
     }
 
     @GetMapping("/{id}/lendCount")
-    public ResponseEntity<LendCountResponse> getBookLendCount(@PathVariable Long id){
+    public ResponseEntity<AmountResponse> getBookLendCount(@PathVariable Long id){
         try {
-            return new ResponseEntity<>(new LendCountResponse(service.getBookLendCount(id)),HttpStatus.OK);
+            return new ResponseEntity<>(new AmountResponse(service.getBookLendCount(id)),HttpStatus.OK);
         }catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
