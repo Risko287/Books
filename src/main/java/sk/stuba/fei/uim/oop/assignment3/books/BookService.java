@@ -33,12 +33,15 @@ public class BookService implements IBookService{
 
 
     private Book saveBook(BookRequest request, Book book) {
-        book.setName(request.getName());
-        book.setDescription(request.getDescription());
-        book.setAuthor(authorService.getAuthorById(request.getAuthor()));
-        book.setPages(request.getPages());
-        book.setAmount(request.getAmount());
-        book.setLendCount(request.getLendCount());
+        if (request.getName() != null) {
+            book.setName(request.getName());
+        }
+        if (request.getDescription() != null) {
+            book.setDescription(request.getDescription());
+        }
+        if (request.getPages() != 0) {
+            book.setPages(request.getPages());
+        }
         return repository.save(book);
     }
 
@@ -51,6 +54,9 @@ public class BookService implements IBookService{
     public Book create(BookRequest request) {
         Book book = new Book();
         authorService.getAuthorById(request.getAuthor()).getBooks().add(book);
+        book.setAuthor(authorService.getAuthorById(request.getAuthor()));
+        book.setAmount(request.getAmount());
+        book.setLendCount(request.getLendCount());
         return saveBook(request, book);
     }
 
@@ -63,14 +69,6 @@ public class BookService implements IBookService{
     public Book updateBookById(Long id, BookRequest request) {
         Book book = getBookById(id);
 
-        if (request.getName() != null) {
-            book.setName(request.getName());
-        }
-
-        if (request.getDescription() != null) {
-            book.setDescription(request.getDescription());
-        }
-
         if (request.getAuthor() != 0) {
             Author author = authorService.getAuthorById(request.getAuthor());
             if (book.getAuthor().getId() != request.getAuthor()) {
@@ -79,11 +77,7 @@ public class BookService implements IBookService{
             }
         }
 
-        if (request.getPages() != 0) {
-            book.setPages(request.getPages());
-        }
-
-        return repository.save(book);
+        return saveBook(request, book);
     }
 
     @Override
@@ -102,7 +96,7 @@ public class BookService implements IBookService{
     public int updateBookAmount(Long id, Amount request) {
         Book book = getBookById(id);
         int amount = book.getAmount() + request.getAmount();
-        amount += request.getAmount();
+        //amount += request.getAmount();
         book.setAmount(amount);
         repository.save(book);
 

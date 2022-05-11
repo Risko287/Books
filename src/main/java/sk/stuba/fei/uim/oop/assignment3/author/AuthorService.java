@@ -12,17 +12,17 @@ import java.util.List;
 public class AuthorService implements IAuthorService {
 
     private final IAuthorRepository authorRepository;
-    private final IBookRepository bookRepository;
 
     @Autowired
-    public AuthorService(IAuthorRepository authorRepository, IBookRepository bookRepository) {
+    public AuthorService(IAuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
-        this.bookRepository = bookRepository;
     }
 
     private Author saveAuthor(AuthorRequest request, Author a) {
-        a.setName(request.getName());
-        a.setSurname(request.getSurname());
+        if (request.getName() != null)
+            a.setName(request.getName());
+        if (request.getSurname() != null)
+            a.setSurname(request.getSurname());
         return authorRepository.save(a);
     }
 
@@ -49,7 +49,6 @@ public class AuthorService implements IAuthorService {
     @Override
     public void deleteAuthor(Long id) {
         Author author = getAuthorById(id);
-        bookRepository.deleteAll(author.getBooks());
         authorRepository.delete(author);
     }
 
