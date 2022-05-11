@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.assignment3.author;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.books.Book;
 import sk.stuba.fei.uim.oop.assignment3.books.IBookRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -17,16 +18,6 @@ public class AuthorService implements IAuthorService {
     public AuthorService(IAuthorRepository authorRepository, IBookRepository bookRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
-        //////////////////////////////
-        Author a1 = new Author();
-        a1.setName("FERKO");
-        a1.setSurname("MRKVICKA");
-        Author a2 = new Author();
-        a2.setName("jozko");
-        a2.setSurname("baci");
-        this.authorRepository.save(a1);
-        this.authorRepository.save(a2);
-        /////////////////////////////
     }
 
     private Author saveAuthor(AuthorRequest request, Author a) {
@@ -60,5 +51,14 @@ public class AuthorService implements IAuthorService {
         Author author = getAuthorById(id);
         bookRepository.deleteAll(author.getBooks());
         authorRepository.delete(author);
+    }
+
+    @Override
+    public void assignBookToNewAuthor(Author newAuthor, Book book)
+    {
+        Author currentAuthor = book.getAuthor();
+        currentAuthor.getBooks().remove(book);
+        newAuthor.getBooks().add(book);
+        authorRepository.saveAll(List.of(currentAuthor, newAuthor));
     }
 }

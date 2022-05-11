@@ -62,18 +62,28 @@ public class BookService implements IBookService{
     @Override
     public Book updateBookById(Long id, BookRequest request) {
         Book book = getBookById(id);
-        if (book.getAuthor().getId() != (request.getAuthor())){
-            book.getAuthor().getBooks().remove(book);
-            if (request.getAuthor() != 0) {
-                authorService.getAuthorById(request.getAuthor()).getBooks().add(book);
-                book.setAuthor(authorService.getAuthorById(request.getAuthor()));
-            } else
-                book.getAuthor().setId(request.getAuthor());
-        }
-        else
-            book.setAuthor(authorService.getAuthorById(request.getAuthor()));
 
-        return saveBook(request, book);
+        if (request.getName() != null) {
+            book.setName(request.getName());
+        }
+
+        if (request.getDescription() != null) {
+            book.setDescription(request.getDescription());
+        }
+
+        if (request.getAuthor() != 0) {
+            Author author = authorService.getAuthorById(request.getAuthor());
+            if (book.getAuthor().getId() != request.getAuthor()) {
+                authorService.assignBookToNewAuthor(author, book);
+                book.setAuthor(author);
+            }
+        }
+
+        if (request.getPages() != 0) {
+            book.setPages(request.getPages());
+        }
+
+        return repository.save(book);
     }
 
     @Override
