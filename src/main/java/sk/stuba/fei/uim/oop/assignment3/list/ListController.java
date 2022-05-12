@@ -58,5 +58,25 @@ public class ListController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/{id}/remove")
+    public ResponseEntity<Void> removeBookFromList(@PathVariable("id") Long id,  @RequestBody IdRequest request){
+        try {
+            service.removeBookFromList(id, request);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/lend")
+    public ResponseEntity<Void> lendList(@PathVariable Long id){
+        try {
+            service.lendList(id);
+        }catch (EntityNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
 

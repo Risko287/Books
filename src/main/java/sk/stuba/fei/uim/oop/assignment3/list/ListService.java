@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.assignment3.list;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.books.Book;
 import sk.stuba.fei.uim.oop.assignment3.books.BookService;
 
 import javax.persistence.EntityNotFoundException;
@@ -46,9 +47,32 @@ public class ListService implements IListService{
     @Override
     public Long addBookToList(Long id, IdRequest request) {
         List list = getListById(id);
-        list.getLendingList().add(bookService.getBookById(request.getId()));
+        Book book = bookService.getBookById(request.getId());
+        list.getLendingList().add(book);
         repository.save(list);
-        return request.getId();
+        return book.getId();
+    }
+
+    @Override
+    public void removeBookFromList(Long id, IdRequest request) {
+        List list = getListById(id);
+        Book book = bookService.getBookById(request.getId());
+        list.getLendingList().remove(book);
+        repository.save(list);
+    }
+
+    @Override
+    public void lendList(Long id) {
+        List list = getListById(id);
+        if (!list.isLended()) {
+            for (int i = 0; i < list.getLendingList().size(); i++) {
+                int lendCount = list.getLendingList().get(i).getLendCount();
+                list.getLendingList().get(i).setLendCount(lendCount + 1);
+            }
+            list.setLended(true);
+            repository.save(list);
+        }
+        //else throw BadRequestException;
     }
 
 }
