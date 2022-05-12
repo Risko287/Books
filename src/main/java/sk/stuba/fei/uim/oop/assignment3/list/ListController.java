@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sk.stuba.fei.uim.oop.assignment3.books.BookResponse;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -27,8 +26,8 @@ public class ListController {
     }
 
     @PostMapping
-    public ResponseEntity<ListResponse> createList(@RequestBody ListRequest request){
-        return new ResponseEntity<>(new ListResponse(service.createList(request)), HttpStatus.CREATED);
+    public ResponseEntity<ListResponse> createList(){
+        return new ResponseEntity<>(new ListResponse(service.createList()), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

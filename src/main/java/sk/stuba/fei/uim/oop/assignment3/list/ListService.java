@@ -2,17 +2,21 @@ package sk.stuba.fei.uim.oop.assignment3.list;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.books.BookService;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 
 @Service
 public class ListService implements IListService{
 
     private final IListRepository repository;
+    private final BookService bookService;
 
     @Autowired
-    public ListService(IListRepository repository) {
+    public ListService(IListRepository repository, BookService bookService) {
         this.repository = repository;
+        this.bookService = bookService;
     }
 
     @Override
@@ -21,10 +25,10 @@ public class ListService implements IListService{
     }
 
     @Override
-    public List createList(ListRequest request) {
+    public List createList() {
         List list = new List();
-        list.setLendingList(request.getLendingList());
-        list.setLended(request.isLended());
+        list.setLended(false);
+        list.setLendingList(new ArrayList<>());
         return repository.save(list);
     }
 
