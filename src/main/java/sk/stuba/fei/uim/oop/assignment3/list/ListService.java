@@ -39,7 +39,16 @@ public class ListService implements IListService{
 
     @Override
     public void deleteListById(Long id) {
-        repository.deleteById(id);
+        List list = getListById(id);
+        repository.delete(list);
+    }
+
+    @Override
+    public Long addBookToList(Long id, IdRequest request) {
+        List list = getListById(id);
+        list.getLendingList().add(bookService.getBookById(request.getId()));
+        repository.save(list);
+        return request.getId();
     }
 
 }

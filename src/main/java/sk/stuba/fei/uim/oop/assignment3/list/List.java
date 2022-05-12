@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.assignment3.list;
 
 import lombok.Getter;
 import lombok.Setter;
+import sk.stuba.fei.uim.oop.assignment3.books.Book;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class List {
     private Long id;
 
     @OneToMany
-    private java.util.List<BookInList> lendingList;
+    private java.util.List<Book> lendingList;
 
     private boolean lended;
 

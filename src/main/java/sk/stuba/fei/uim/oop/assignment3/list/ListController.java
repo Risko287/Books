@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sk.stuba.fei.uim.oop.assignment3.books.Amount;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -47,6 +48,15 @@ public class ListController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/add")
+    public ResponseEntity<IdRequest> addBookToList(@PathVariable Long id, @RequestBody IdRequest request){
+        try {
+            return new ResponseEntity<>(new IdRequest(service.addBookToList(id, request)),HttpStatus.OK);
+        }catch (EntityNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
 
