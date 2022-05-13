@@ -41,6 +41,12 @@ public class ListService implements IListService{
     @Override
     public void deleteListById(Long id) {
         List list = getListById(id);
+        if (list.isLended()) {
+            for (int i = 0; i < list.getLendingList().size(); i++) {
+                int lendCount = list.getLendingList().get(i).getLendCount();
+                list.getLendingList().get(i).setLendCount(lendCount - 1);
+            }
+        }
         repository.delete(list);
     }
 
@@ -48,7 +54,7 @@ public class ListService implements IListService{
     public List addBookToList(Long id, IdRequest request) {
         List list = getListById(id);
         Book book = bookService.getBookById(request.getId());
-        if (list.isLended()) throw new IllegalStateException();
+        if (list.isLended() || list.getLendingList().contains(book)) throw new IllegalStateException();
         list.getLendingList().add(book);
         return repository.save(list);
     }
