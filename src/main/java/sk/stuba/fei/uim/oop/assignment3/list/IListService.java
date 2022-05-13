@@ -7,7 +7,7 @@ public interface IListService {
     List getListById(Long id);
     void deleteListById(Long id);
 
-    Long addBookToList(Long id, IdRequest request);
+    List addBookToList(Long id, IdRequest request);
     void removeBookFromList(Long id, IdRequest request);
     void lendList(Long id);
 

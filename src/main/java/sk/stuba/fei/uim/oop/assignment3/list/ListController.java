@@ -51,9 +51,9 @@ public class ListController {
     }
 
     @PostMapping("/{id}/add")
-    public ResponseEntity<IdRequest> addBookToList(@PathVariable Long id, @RequestBody IdRequest request){
+    public ResponseEntity<ListResponse> addBookToList(@PathVariable Long id, @RequestBody IdRequest request){
         try {
-            return new ResponseEntity<>(new IdRequest(service.addBookToList(id, request)),HttpStatus.OK);
+            return new ResponseEntity<>(new ListResponse(service.addBookToList(id, request)),HttpStatus.OK);
         }catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -73,10 +73,12 @@ public class ListController {
     public ResponseEntity<Void> lendList(@PathVariable Long id){
         try {
             service.lendList(id);
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (IllegalStateException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
 
