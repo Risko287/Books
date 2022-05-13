@@ -1,16 +1,16 @@
-package sk.stuba.fei.uim.oop.assignment3.books;
+package sk.stuba.fei.uim.oop.assignment3.books.web;
 
 import lombok.Getter;
+import sk.stuba.fei.uim.oop.assignment3.books.data.Book;
 
 @Getter
-public class BookResponse {
+public class BookResponse extends Amount{
 
     private final long id;
     private final String name;
     private final String description;
     private final long author;
     private final int pages;
-    private final int amount;
     private final int lendCount;
 
     public BookResponse(Book book) {

@@ -1,9 +1,10 @@
-package sk.stuba.fei.uim.oop.assignment3.books;
+package sk.stuba.fei.uim.oop.assignment3.books.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sk.stuba.fei.uim.oop.assignment3.books.logic.BookService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -29,6 +30,7 @@ public class BookController {
     public ResponseEntity<BookResponse> createBook(@RequestBody BookRequest request){
         return new ResponseEntity<>(new BookResponse(service.create(request)), HttpStatus.CREATED);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<BookResponse> getBook(@PathVariable Long id){
         try {
@@ -37,6 +39,7 @@ public class BookController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<BookResponse> updateBook(@PathVariable("id") Long id, @RequestBody BookRequest request){
         try {
@@ -50,10 +53,10 @@ public class BookController {
     public ResponseEntity<Void> deleteBook(@PathVariable("id") Long id){
         try {
             service.deleteBookById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{id}/amount")

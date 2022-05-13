@@ -44,10 +44,10 @@ public class ListController {
     public ResponseEntity<Void> deleteList(@PathVariable("id") Long id){
         try {
             service.deleteListById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/{id}/add")

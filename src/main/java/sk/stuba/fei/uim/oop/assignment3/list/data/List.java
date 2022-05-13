@@ -11,6 +11,7 @@ import java.util.ArrayList;
 @Setter
 @Entity
 public class List {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

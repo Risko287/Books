@@ -7,6 +7,7 @@ import sk.stuba.fei.uim.oop.assignment3.books.web.BookRequest;
 import java.util.List;
 
 public interface IBookService {
+
     List<Book> getAll();
     Book create(BookRequest request);
     Book getBookById(Long id);

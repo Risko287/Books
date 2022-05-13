@@ -21,7 +21,6 @@ public class AuthorController {
         this.service = service;
     }
 
-
     @GetMapping()
     public List<AuthorResponse> getAllAuthors(){
         return this.service.getAll().stream().map(AuthorResponse::new).collect(Collectors.toList());
@@ -39,7 +38,6 @@ public class AuthorController {
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @PutMapping("/{id}")
@@ -55,9 +53,9 @@ public class AuthorController {
     public ResponseEntity<Void> deleteAuthor(@PathVariable("id") Long id){
         try {
             service.deleteAuthor(id);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

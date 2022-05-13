@@ -1,9 +1,11 @@
-package sk.stuba.fei.uim.oop.assignment3.author;
+package sk.stuba.fei.uim.oop.assignment3.author.logic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sk.stuba.fei.uim.oop.assignment3.books.Book;
-import sk.stuba.fei.uim.oop.assignment3.books.IBookRepository;
+import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
+import sk.stuba.fei.uim.oop.assignment3.author.web.AuthorRequest;
+import sk.stuba.fei.uim.oop.assignment3.author.data.IAuthorRepository;
+import sk.stuba.fei.uim.oop.assignment3.books.data.Book;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -53,8 +55,7 @@ public class AuthorService implements IAuthorService {
     }
 
     @Override
-    public void assignBookToNewAuthor(Author newAuthor, Book book)
-    {
+    public void assignBookToNewAuthor(Author newAuthor, Book book) {
         Author currentAuthor = book.getAuthor();
         currentAuthor.getBooks().remove(book);
         newAuthor.getBooks().add(book);

@@ -22,19 +22,7 @@ public class BookService implements IBookService{
     public BookService(IBookRepository repository, AuthorService authorService) {
         this.repository = repository;
         this.authorService = authorService;
-        /*
-        Book book1 = new Book();
-        book1.setName("psicek a macicka");
-        book1.setDescription("rozpravka");
-        book1.setAuthor(authorService.getAuthorById(1L));
-        this.authorService.getAuthorById(1L).getBooks().add(book1);
-        book1.setAmount(50L);
-        book1.setPages(400);
-        book1.setLendCount(10L);
-        this.repository.save(book1);
-         */
         }
-
 
     private Book saveBook(BookRequest request, Book book) {
         if (request.getName() != null) {
@@ -80,7 +68,6 @@ public class BookService implements IBookService{
                 book.setAuthor(author);
             }
         }
-
         return saveBook(request, book);
     }
 
@@ -100,7 +87,6 @@ public class BookService implements IBookService{
     public int updateBookAmount(Long id, Amount request) {
         Book book = getBookById(id);
         int amount = book.getAmount() + request.getAmount();
-        //amount += request.getAmount();
         book.setAmount(amount);
         repository.save(book);
 

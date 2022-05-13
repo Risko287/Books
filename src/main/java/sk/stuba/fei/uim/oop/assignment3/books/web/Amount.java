@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Amount {
 
-    private int amount;
+    protected int amount;
 }
