@@ -56,6 +56,8 @@ public class ListController {
             return new ResponseEntity<>(new ListResponse(service.addBookToList(id, request)),HttpStatus.OK);
         }catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (IllegalStateException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

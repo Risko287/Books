@@ -45,12 +45,12 @@ public class ListService implements IListService{
     }
 
     @Override
-    public Long addBookToList(Long id, IdRequest request) {
+    public List addBookToList(Long id, IdRequest request) {
         List list = getListById(id);
         Book book = bookService.getBookById(request.getId());
+        if (list.isLended()) throw new IllegalStateException();
         list.getLendingList().add(book);
-        repository.save(list);
-        return book.getId();
+        return repository.save(list);
     }
 
     @Override
@@ -64,15 +64,12 @@ public class ListService implements IListService{
     @Override
     public void lendList(Long id) {
         List list = getListById(id);
-        if (!list.isLended()) {
-            for (int i = 0; i < list.getLendingList().size(); i++) {
-                int lendCount = list.getLendingList().get(i).getLendCount();
-                list.getLendingList().get(i).setLendCount(lendCount + 1);
-            }
-            list.setLended(true);
-            repository.save(list);
+        if (list.isLended()) throw new IllegalStateException();
+        for (int i = 0; i < list.getLendingList().size(); i++) {
+            int lendCount = list.getLendingList().get(i).getLendCount();
+            list.getLendingList().get(i).setLendCount(lendCount + 1);
         }
-        //else throw BadRequestException;
+        list.setLended(true);
+        repository.save(list);
     }
-
 }
