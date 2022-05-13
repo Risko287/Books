@@ -1,4 +1,8 @@
-package sk.stuba.fei.uim.oop.assignment3.books;
+package sk.stuba.fei.uim.oop.assignment3.books.logic;
+
+import sk.stuba.fei.uim.oop.assignment3.books.web.Amount;
+import sk.stuba.fei.uim.oop.assignment3.books.data.Book;
+import sk.stuba.fei.uim.oop.assignment3.books.web.BookRequest;
 
 import java.util.List;
 

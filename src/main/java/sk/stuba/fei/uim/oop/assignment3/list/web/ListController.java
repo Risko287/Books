@@ -1,10 +1,10 @@
-package sk.stuba.fei.uim.oop.assignment3.list;
+package sk.stuba.fei.uim.oop.assignment3.list.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sk.stuba.fei.uim.oop.assignment3.books.Amount;
+import sk.stuba.fei.uim.oop.assignment3.list.logic.ListService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;

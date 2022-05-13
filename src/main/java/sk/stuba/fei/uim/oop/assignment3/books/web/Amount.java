@@ -1,13 +1,13 @@
-package sk.stuba.fei.uim.oop.assignment3.list;
+package sk.stuba.fei.uim.oop.assignment3.books.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
-public class IdRequest {
+@NoArgsConstructor
+public class Amount {
 
-    private long id;
+    private int amount;
 }

@@ -1,9 +1,12 @@
-package sk.stuba.fei.uim.oop.assignment3.list;
+package sk.stuba.fei.uim.oop.assignment3.list.logic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sk.stuba.fei.uim.oop.assignment3.books.Book;
-import sk.stuba.fei.uim.oop.assignment3.books.BookService;
+import sk.stuba.fei.uim.oop.assignment3.books.data.Book;
+import sk.stuba.fei.uim.oop.assignment3.books.logic.BookService;
+import sk.stuba.fei.uim.oop.assignment3.list.data.IListRepository;
+import sk.stuba.fei.uim.oop.assignment3.list.data.List;
+import sk.stuba.fei.uim.oop.assignment3.list.web.IdRequest;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;

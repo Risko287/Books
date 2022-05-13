@@ -1,9 +1,10 @@
-package sk.stuba.fei.uim.oop.assignment3.author;
+package sk.stuba.fei.uim.oop.assignment3.author.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sk.stuba.fei.uim.oop.assignment3.author.logic.AuthorService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -54,15 +55,6 @@ public class AuthorController {
     public ResponseEntity<Void> deleteAuthor(@PathVariable("id") Long id){
         try {
             service.deleteAuthor(id);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    public ResponseEntity<Void> authorNotFound(Long id){ //tu som chcel vytvorit funkciu aby som nemal duplicitny kod
-        try {
-            service.getAuthorById(id);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -1,7 +1,8 @@
-package sk.stuba.fei.uim.oop.assignment3.list;
+package sk.stuba.fei.uim.oop.assignment3.list.web;
 
 import lombok.Getter;
-import sk.stuba.fei.uim.oop.assignment3.books.BookResponse;
+import sk.stuba.fei.uim.oop.assignment3.books.web.BookResponse;
+import sk.stuba.fei.uim.oop.assignment3.list.data.List;
 
 import java.util.stream.Collectors;
 
