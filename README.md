@@ -1,14 +1,11 @@
-# Zadanie 3 - Knihy - moja verzia
-B-OOP 2022
+# Knihy - Spring
 
-Vašou úlohou je naprogramovať aplikačný server v jazyku Java s pomocou frameworku Spring.
+V tomto projekte na naprogramovaný aplikačný server v jazyku Java s pomocou frameworku Spring.
 
 Aplikačný server umožňuje správu kníh, ich autorov a ich požičiavania (napr. z knižnice).
-Webové rozhranie (API), ako aj objekty, ktoré sa používajú na komunikáciu s vonkajším svetom sú definované v zadaní a musi byť použité na komunikáciu cez webové služby. Mimo webového rozhrania môžete použiť ďalšie objekty podľa vášho návrhu, ak to uznáte za vhodné.
+Webové rozhranie (API), ako aj objekty, ktoré sa používajú na komunikáciu s vonkajším svetom sú definované v špecifikácii API a musi byť použité na komunikáciu cez webové služby.
 
 Špecifikáciu webového rozhrania, ktoré má aplikácia poskytovať nájdete tu: https://app.swaggerhub.com/apis-docs/stuba-fei-uim-oop/OOPZadanie3Knihy/1.0.0-oas3
-
-Pokiaľ je v API uvedené, že sa má vrátiť kód 404 a v popise nie je povedané kedy, je ho potrebné vrátiť v prípade, že poskytnuté ID v systéme neexistuje.
 
 ### Popis systému
 
@@ -18,48 +15,16 @@ Systém umožňuje pridávanie a odoberanie kníh z knižnice. Dalej umožnuje �
 
 Systém umožňuje vytváranie a vymazávanie listov s požičanými knihami. Do listov je možné pridávať a odoberať knihy (vždy v jednom liste môže byt len jedna kniha). Systém ďalej umožnuje požičanie ešte nevypožičaných listov, čo inkrementuje počítadlo požičaných kópií v individuálnych knihách. Do už vypožičaných listov kníh nie je možné pridávať ďalšie knihy.
 
-## Automatizované testy
+## Ďalšie informácie
 
-Projekt obsahuje automatizované testy. Testy sa **NESPÚŠŤAJÚ** automaticky pri git push. Pokiaľ si chcete overiť na koľko vaša implementácia spĺňa testy musíte si ich spustiť sami. Testy sa dajú spustiť 2 spôsobmi:
-* cez Maven, spustením _test_ lifecycle-u (bočné menu > maven > _projekt_ > lifecycle > test)
-* spustením testov rovno z triedy ktorá ich obsahuje (nachádza sa v src/test/sk/.../oop/assignment3/Assignment3ApplicationTests.java)
-
-## Hodnotenie
-
-Zadanie je hodnotené 15 bodmi. OOP princípy a Spring záležitosti sú hodnotené 5 bodmi (v prípade tohto zadania môže byť za chyby strhnutých aj viac ako 5 bodov). 10 bodov je možné získať za automatizované testy. Prvých 14 testov hodnotených nie je, za každý ďalší úspešný test dostanete 0,33 bodu. **Odovzdaný program musí byť skompilovateľný, inak je
-hodnotený 0 bodmi**. Skompilovateľnosť zadania kontroluje aj github pipeline. Hlavný dôraz v hodnotení sa kladie na objektový prístup a princípy OOP,
-okrem iného:
+V projekte sú dodržané OOP prinpcípy ako napríklad:
 
 * vhodné pomenovanie tried, metód a premenných v jednotnom jazyku (názvy tried s veľkým počiatočným písmenom, názvy metód s malým),
 * vhodné použitie modifikátorov prístupu (public, private, poprípade protected) na obmedzenie prístupu k metódam a atribútom,
 * využitie dedenia a polymorfizmu,
 * použitie výnimiek na ošetrenie nedovoleného správania (nehádzať a nezachytávať všeobecnú triedu Exception),
-* nepoužívajte nested classy,
-* vo vašich triedach nevytvárajte statické metódy ani nekonštantné statické premenné (v zadaní nie sú potrebné),
-* hlavná trieda (main) môže obsahovať len kód potrebný na inicializáciu aplikácie pomocou Spring frameworku,
-* vo svojom riešení môžete použiť knižnicu lombok a jej anotácie. Potrebná dependencia je už pridaná v _pom.xml_ súbore.
-
-Niektoré z vecí, za ktoré sme minulý rok strhli po 0,5 - 1 bode:
-* Inicializovanie service cez setter a nie cez konštruktor (ak je to možné)
-* Rovnaká trieda pre response aj pre DB
-* Mŕtvy/nevyužívaný kód
-* Nepoužívanie Interface pre service
-* Nepoužitie repozitárov
-* Jeden controller pre všetky endpointy
-* Zlé konvencie a pomenovania
-
-Prípadne sú pri nedostatočnej implementácií strhnuté body za OOP za nedostatočnú implementáciu.
-
-**Pri zadaní sa kontroluje originalita zadaní, a všetky zadania so zhodou vyššou ako 80% sú hodnotené 0 bodmi.**
-
-## Odovzdávanie
-Zadanie si naklonujte z repozitára zadania výhradne pomocou poskytnutej linky cez GitHub Classroom (pokiaľ si vygenerujete vlastný repozitár pomocou tlačidla "Use this template" z template repozitára, my váš repozitár neuvidíme a nebudeme ho hodnotiť!). Svoje vypracovanie nahrajte do pre vás vytvoreného repozitára pre toto zadanie pomocou programu Git (git commit + git push).
-Skontrolujte si, či sa váš repozitár nachádza pod skupinov **Interes-Group**, inak nemáme prístup ku vášmu repozitáru a zadanie sa nepovažuje za odovzdané. Vypracovanie môžete "pusho-vať" priebežne. Hodnotiť sa bude iba _master_ branch. Zadanie je nutné vypracovať do **13.5.2022 23:00**.
-
-V projekte upravujte iba súbory v priečinku _src/main/java_ a jeho podpriečinkoch. Ostatné súbory je upravovať zakázané (predovšetkým súbory _pom.xml_, súbory obsahujúce github pipeline-y a súbory obsahujúce automatizované testy, pri zmene týchto súborov môžte byť ohodnotený 0 bodmi).
-
-Vo svojom github účte si nastavte svoje meno (settings > profile > name), aby bolo možné priradiť riešenie ku študentovy. **Pokiaľ nebude možné spárovať študenta s riešením je zadanie hodnotené 0 bodmi!**
-
+* hlavná trieda (main) obsahuje len kód potrebný na inicializáciu aplikácie pomocou Spring frameworku,
+* v projekte je použitá knižnica lombok a jej anotácie.
 
 # Assignment 3 - Books
 
