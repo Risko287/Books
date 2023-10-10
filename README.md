@@ -7,7 +7,7 @@ Webové rozhranie (API), ako aj objekty, ktoré sa používajú na komunikáciu 
 
 Špecifikáciu webového rozhrania, ktoré má aplikácia poskytovať nájdete tu: https://app.swaggerhub.com/apis-docs/stuba-fei-uim-oop/OOPZadanie3Knihy/1.0.0-oas3
 
-### Popis systému
+## Popis systému
 
 Podrobný popis jednotlivých operácii je uvedený v špecifikácii API.
 
@@ -15,7 +15,7 @@ Systém umožňuje pridávanie a odoberanie kníh z knižnice. Dalej umožnuje �
 
 Systém umožňuje vytváranie a vymazávanie listov s požičanými knihami. Do listov je možné pridávať a odoberať knihy (vždy v jednom liste môže byt len jedna kniha). Systém ďalej umožnuje požičanie ešte nevypožičaných listov, čo inkrementuje počítadlo požičaných kópií v individuálnych knihách. Do už vypožičaných listov kníh nie je možné pridávať ďalšie knihy.
 
-## Ďalšie informácie
+### Ďalšie informácie
 
 V projekte sú dodržané OOP prinpcípy ako napríklad:
 
@@ -25,74 +25,3 @@ V projekte sú dodržané OOP prinpcípy ako napríklad:
 * použitie výnimiek na ošetrenie nedovoleného správania (nehádzať a nezachytávať všeobecnú triedu Exception),
 * hlavná trieda (main) obsahuje len kód potrebný na inicializáciu aplikácie pomocou Spring frameworku,
 * v projekte je použitá knižnica lombok a jej anotácie.
-
-# Assignment 3 - Books
-
-B-OOP 2021
-
-Your task is to create an application server using Java with the Spring framework.
-
-The application server enables management of books, authors and lending lists of books (for example like in a library). The web Interface (API), and also the objects that are used to communicate with the outside world are defined in the specification and must be used to communicate through the web services. Outside the web interface you can use any other objects according to your design, if you deem it appropriate.
-
-The web interface specification (API) that the application has to provide can be found here: https://app.swaggerhub.com/apis-docs/stuba-fei-uim-oop/OOPZadanie3Knihy/1.0.0-oas3
-
-If the specification states that a 404 code should be returned, and the description does not say when, it is necessary to return it, if the given ID does not exist in the system.
-
-### System description
-
-A detailed description of each operation is given in the API specification.
-
-The system allows the addition, removal and modification of books in a library, including the change of an author (a book can have only one author), as well as increasing the amount of available books.
-
-The system allows the creation and deletion of lists of lent books. Books can be added and removed from these lists (the same list can contain the same book at most once). The system allows lending of such lists, lending a lists increments lending count for each book on the list. Adding additional books to lists that are already lent out is not allowed.
-
----------------------------------------------------------------------------------
-
-## Automated tests
-The project contains automated tests. Tests **DO NOT** run automatically on git push. If you want to verify how many of your implementations pass the tests, you must run them yourself. Tests can be run in 2 ways:
-
-* using Maven, by launching the test lifecycle (side menu> maven> project> lifecycle> test)
-* by running tests directly from the class that contains them (located in src/test/sk/.../oop/assignment3/Assignment3ApplicationTests.java))
-
-## Evaluation
-
-You can get 15 points for this assignment. 5 points are given for following OOP principles and correctly using the Spring framework (in this assignments more than 5 points can be deduced for mistakes). 10 points are given when your code passes all the automated tests. 0 points are awarded for the first 14 passing tests, all additional passing tests are worth 0,33 points. **The program must be able to compile, otherwise 0 points are given for the assigment**.
-
-The github pipeline checks whether the program can be compiled. The main focus during grading is put on object-oriented approach and OOP principles used by the solution.
-
-Including, but not limited to:
-
-* appropriate naming of classes, methods and variables in a single language (class names starting with a capital letter, method names starting with a lowercase letter),
-* appropriate use of access modifiers (public, private, or protected) when restricting access to class methods and attributes,
-* the use of inheritance and polymorphism,
-* usage of exceptions when handling undesired behavior (do not catch or throw the instances of the generic Exception class),
-* don't use nested classes,
-* don't use static methods, or non-constant static variables (you don't need them to complete the assignment),
-* don't put any logic into the main method and its class. The main method should only be used to initialize application using the Spring framework,
-* you can use the lombok library and its annotations in your solution. The neccessary dependency is already present in the _pom.xml_ file.
-
-Issues that resulted in a 0.5 - 1 point reduction last year:
-
-* Using setters to initialize services and not injecting them through the constructor (if applicable)
-* Using the same class for the server response and for the database entity
-* Unused code
-* Lack of interfaces for the service classes
-* Lack of repositories
-* One controller for all endpoints
-* Not following the conventions and naming
-
-If the assignment lacks a substantial part of the specified functionality additional points are substracted.
-
-**The originality of the code is checks, all assignments with a more than 80% match are awarded with 0 points.**
-
-## Handing in the assigment
-
-Clone the assignment from the repository created from this template by the provided link trough GitHub Classroom (if you create your own repository with the "use this template" button, we won't be able to see your repository and we won't be able to grade it!). Upload your solutions to your repository using the Git version control system (git commit + git push).
-
-Make sure, that your repository was created under the **Interes-Group** group, otherwise we won't be able to access your repository, and the assignment will not be graded.
-
-You can push commits to the repository while you work - you don't have to push everything at once. Only the code in the _master_ branch will be graded. You have until **13.5.2022 23:00** to complete the assignment.
-
-Only edit files in the _src/main_ folder or its sub-folders. You mustn't change any other files in the repository (especially the _pom.xml_ file, and the github pipeline files).
-
-You have to have your name set in your github account (settings > profile > name), so that we can match students with their assignments. **If we are unable to match a student with their assignment, the student will receive 0 points for the assignment!**
